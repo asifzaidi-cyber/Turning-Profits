@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turning Profits - Master the Markets</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #E2E8F0; /* slate-200 */
+        }
+        
+        /* --- Animated Background Styles --- */
+        .background-container {
+            position: absolute; /* Changed to absolute */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .color-blob {
+            position: absolute;
+            border-radius: 9999px;
+            opacity: 0.5;
+            filter: blur(100px);
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(52, 211, 153, 0.4);
+            animation: moveBlob1 25s infinite alternate;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: rgba(59, 130, 246, 0.4);
+            animation: moveBlob2 30s infinite alternate;
+        }
+        
+        .blob-3 {
+            width: 350px;
+            height: 350px;
+            background: rgba(168, 85, 247, 0.3);
+            animation: moveBlob3 20s infinite alternate;
+        }
+
+        @keyframes moveBlob1 {
+            0% { transform: translate(10vw, -10vh) scale(1); }
+            100% { transform: translate(60vw, 50vh) scale(1.2); }
+        }
+
+        @keyframes moveBlob2 {
+            0% { transform: translate(80vw, 20vh) scale(1); }
+            100% { transform: translate(10vw, 70vh) scale(0.9); }
+        }
+        
+        @keyframes moveBlob3 {
+            0% { transform: translate(50vw, 90vh) scale(0.8); }
+            100% { transform: translate(-10vw, 10vh) scale(1.1); }
+        }
+        
+        /* --- General Styling --- */
+        .gradient-text {
+            background: linear-gradient(90deg, #34D399, #FBBF24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cta-button {
+            background: linear-gradient(90deg, #34D399, #2563EB);
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(52, 211, 153, 0.2), 0 4px 6px -2px rgba(52, 211, 153, 0.1);
+        }
+        
+        /* --- Section Styling --- */
+        .dark-section {
+            position: relative;
+            background-color: #000;
+            color: #E2E8F0;
+        }
+        .light-section {
+            background-color: #ffffff;
+            color: #111827; /* gray-900 */
+        }
+        
+        /* --- Card Styling --- */
+        .dark-section .feature-card {
+            background-color: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s ease;
+        }
+        .dark-section .feature-card:hover {
+            background-color: rgba(31, 41, 55, 0.7);
+        }
+        .light-section .feature-card {
+            background-color: #f9fafb; /* gray-50 */
+            border: 1px solid #e5e7eb; /* gray-200 */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .light-section .feature-card:hover {
+            background-color: #f3f4f6; /* gray-100 */
+            transform: translateY(-5px);
+        }
+        
+        /* --- Header Styling for Scroll --- */
+        header {
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+        header.scrolled-light {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        header.scrolled-light .nav-link, 
+        header.scrolled-light #mobile-menu-button,
+        header.scrolled-light .auth-link {
+            color: #111827; /* gray-900 */
+        }
+        header.scrolled-light .logo-text {
+            color: #111827;
+        }
+        header.scrolled-light .nav-link:hover {
+            color: #3b82f6; /* blue-500 */
+        }
+        header.scrolled-light .nav-link:hover::after {
+            background-color: #3b82f6;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #ffffff;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #34D399;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <svg class="w-8 h-8 text-emerald-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                    <span class="text-2xl font-bold text-white logo-text">Turning Profits</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#topics" class="text-slate-300 nav-link">Topics</a>
+                    <a href="#about" class="text-slate-300 nav-link">About Us</a>
+                </nav>
+
+                <!-- Auth Buttons -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="https://www.youtube.com/@TurningProfits" target="_blank" class="px-5 py-2.5 text-sm font-semibold text-white rounded-lg cta-button">
+                        Watch on YouTube
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+             <a href="#topics" class="block py-2 text-slate-300 nav-link">Topics</a>
+             <a href="#about" class="block py-2 text-slate-300 nav-link">About Us</a>
+            <div class="mt-4 pt-4 border-t border-slate-700 space-y-2">
+                 <a href="https://www.youtube.com/@TurningProfits" target="_blank" class="block text-center w-full px-5 py-2.5 text-sm font-semibold text-white rounded-lg cta-button">
+                    Watch on YouTube
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="dark-section pt-32 pb-16 md:pt-48 md:pb-24">
+            <div class="background-container">
+                <div class="color-blob blob-1"></div>
+                <div class="color-blob blob-2"></div>
+                <div class="color-blob blob-3"></div>
+            </div>
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
+                    Your Guide to
+                    <br>
+                    <span class="gradient-text">Financial Freedom</span>
+                </h1>
+                <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-slate-400">
+                    Learn to navigate the markets with confidence. We provide expert insights on Stocks, Cryptocurrencies, and Precious Metals to help you build generational wealth.
+                </p>
+                <div class="mt-10">
+                    <a href="https://www.youtube.com/@TurningProfits" target="_blank" class="px-8 py-4 text-lg font-bold text-white rounded-lg cta-button inline-block">
+                        Watch Our Free Lessons
+                    </a>
+                </div>
+                
+                <div class="mt-16 md:mt-24">
+                    <img src="https://placehold.co/1200x600/000000/34D399?text=Market+Charts" 
+                         alt="Market Analysis" 
+                         class="rounded-2xl shadow-2xl shadow-emerald-500/10 mx-auto border border-white/10"
+                         onerror="this.onerror=null;this.src='https://placehold.co/1200x600/1a1a1a/ffffff?text=Image+Not+Found';">
+                </div>
+            </div>
+        </section>
+
+        <!-- Topics Section (Light) -->
+        <section id="topics" class="light-section py-20 scroll-section">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold">Master the Core Pillars of Investing</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-slate-600">
+                        We focus on the key asset classes that drive the modern economy.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Topic 1 -->
+                    <div class="p-8 feature-card rounded-xl">
+                        <div class="bg-blue-100 inline-block p-3 rounded-lg mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Stock Market Analysis</h3>
+                        <p class="text-slate-600">Learn fundamental and technical analysis to find winning stocks and build a long-term portfolio for growth.</p>
+                    </div>
+                    <!-- Topic 2 -->
+                    <div class="p-8 feature-card rounded-xl">
+                        <div class="bg-purple-100 inline-block p-3 rounded-lg mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Cryptocurrency & DeFi</h3>
+                        <p class="text-slate-600">Navigate the exciting world of digital assets. We cover everything from Bitcoin and Ethereum to the latest trends in DeFi.</p>
+                    </div>
+                    <!-- Topic 3 -->
+                    <div class="p-8 feature-card rounded-xl">
+                        <div class="bg-yellow-100 inline-block p-3 rounded-lg mb-4">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Precious Metals</h3>
+                        <p class="text-slate-600">Understand the timeless value of Gold and Silver as a hedge against inflation and a cornerstone of a diversified portfolio.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section (Dark) -->
+        <section id="about" class="dark-section py-20 scroll-section">
+            <div class="container mx-auto px-6">
+                <div class="max-w-3xl mx-auto text-center feature-card p-8 md:p-12 rounded-xl">
+                    <img src="https://placehold.co/100x100/1a1a1a/ffffff?text=TP" 
+                         alt="Turning Profits Logo" 
+                         class="w-24 h-24 rounded-full mx-auto"
+                         onerror="this.onerror=null;this.src='https://placehold.co/100x100/1a1a1a/ffffff?text=Image';">
+                    <p class="mt-8 text-2xl font-medium text-white">
+                        "Our mission is to demystify the world of investing. We believe everyone deserves access to high-quality financial education to secure their future. We're not just teaching, we're building a community of smart, independent investors."
+                    </p>
+                    <div class="mt-6">
+                        <p class="font-bold text-white">The Turning Profits Team</p>
+                        <p class="text-slate-400">Your Partners in Wealth Creation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Footer (Dark) -->
+        <footer class="dark-section border-t border-white/10">
+            <div class="container mx-auto px-6 py-12">
+                <div class="text-center mb-8">
+                     <h2 class="text-3xl md:text-4xl font-bold text-white">
+                        Ready to Start Learning?
+                    </h2>
+                     <p class="mt-4 max-w-xl mx-auto text-slate-400">
+                        Subscribe to our YouTube channel for weekly market updates and deep-dive tutorials.
+                    </p>
+                    <div class="mt-8">
+                        <a href="https://www.youtube.com/@TurningProfits" target="_blank" class="px-8 py-4 text-lg font-bold text-white rounded-lg cta-button inline-block">
+                            Go to YouTube
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-12 border-t border-white/10 pt-8 text-center text-slate-400">
+                    <p>&copy; 2024 Turning Profits. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // --- Mobile Menu Toggle ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- Header Style on Scroll ---
+        const header = document.getElementById('main-header');
+        const scrollSections = document.querySelectorAll('.scroll-section');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-80px 0px 0px 0px', // Adjust top margin to trigger just below the header
+            threshold: 0
+        };
+
+        const sectionObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('light-section')) {
+                        header.classList.add('scrolled-light');
+                    } else {
+                        header.classList.remove('scrolled-light');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        scrollSections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+    </script>
+</body>
+</html>
