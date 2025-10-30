@@ -175,6 +175,8 @@
       box-shadow: 0 6px 20px rgba(0,0,0,0.08);
       transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease, color 0.3s ease;
       color: #333;
+      cursor: pointer;
+      touch-action: manipulation;
     }
 
     .section-item:hover {
@@ -182,6 +184,19 @@
       box-shadow: 0 12px 28px rgba(0,0,0,0.12);
       background: linear-gradient(135deg, var(--gold-dark), var(--gold-mid), var(--gold-bright));
       color: #fff;
+    }
+
+    /* Pulse animation for gold flash */
+    @keyframes goldPulse {
+      0% { background: #fff; box-shadow: none; color: #333; }
+      50% { background: linear-gradient(135deg, var(--gold-bright), var(--gold-mid)); box-shadow: 0 0 22px rgba(255, 215, 0, 0.8); color: #fff; }
+      100% { background: #fff; box-shadow: none; color: #333; }
+    }
+
+    @media (hover: none) {
+      .section-item.tap-flash {
+        animation: goldPulse 0.5s ease;
+      }
     }
 
     .qr-section img {
@@ -224,18 +239,6 @@
       .dollar { font-size: 12px !important; }
       .section-content { flex-direction: column; align-items: center; }
       .section-item { width: 90%; max-width: 360px; }
-    }
-
-    /* --- GOLD FLASH TAP EFFECT FOR TOUCH DEVICES --- */
-    @media (hover: none) {
-      .section-item {
-        transition: background-color 0.25s, box-shadow 0.25s;
-      }
-      .section-item:active {
-        background: linear-gradient(135deg, var(--gold-bright), var(--gold-mid));
-        box-shadow: 0 0 22px rgba(255, 215, 0, 0.8);
-        color: #fff;
-      }
     }
   </style>
 </head>
@@ -321,6 +324,17 @@
       dollar.textContent = '$';
       hero.appendChild(dollar);
     }
+
+    // --- Gold Flash Pulse Effect ---
+    const sectionItems = document.querySelectorAll('.section-item');
+    sectionItems.forEach(item => {
+      item.addEventListener('touchstart', () => {
+        item.classList.add('tap-flash');
+      });
+      item.addEventListener('touchend', () => {
+        setTimeout(() => item.classList.remove('tap-flash'), 400);
+      });
+    });
   </script>
 </body>
 </html>
