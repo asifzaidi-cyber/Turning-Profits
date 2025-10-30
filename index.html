@@ -7,7 +7,7 @@
   <link rel="icon" href="favicon_multi.ico" type="image/x-icon" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <style>
-    :root{
+    :root {
       --gold-dark: #8b6914;
       --gold-mid: #b8860b;
       --gold-bright: #ffd700;
@@ -168,26 +168,20 @@
     }
 
     .section-item {
-  width: 260px;
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease, color 0.3s ease;
-  color: #333; /* text color */
-}
-
-.section-item:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
-  background: linear-gradient(135deg, var(--gold-dark), var(--gold-mid), var(--gold-bright));
-  color: #fff; /* change text to white for contrast */
-}
-
+      width: 260px;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease, color 0.3s ease;
+      color: #333;
+    }
 
     .section-item:hover {
       transform: translateY(-6px);
       box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold-mid), var(--gold-bright));
+      color: #fff;
     }
 
     .qr-section img {
@@ -219,13 +213,29 @@
       color: #ffcc00;
     }
 
+    /* --- MOBILE OPTIMIZATIONS --- */
     @media (max-width: 720px) {
-      header { padding: 10px 16px; }
-      .nav-links a { margin-left: 10px; font-size: 14px; }
+      header { padding: 10px 16px; flex-direction: column; align-items: flex-start; }
+      .nav-links { margin-top: 6px; }
+      .nav-links a { margin-left: 12px; font-size: 15px; }
       .hero { height: 28vh; min-height: 180px; padding: 16px 12px; }
       .hero h1 { font-size: clamp(1.6rem, 5vw, 2.5rem); }
       .hero p { font-size: clamp(1rem, 3vw, 1.2rem); }
-      .dollar { font-size: 12px !important; } /* smaller for mobile */
+      .dollar { font-size: 12px !important; }
+      .section-content { flex-direction: column; align-items: center; }
+      .section-item { width: 90%; max-width: 360px; }
+    }
+
+    /* --- GOLD FLASH TAP EFFECT FOR TOUCH DEVICES --- */
+    @media (hover: none) {
+      .section-item {
+        transition: background-color 0.25s, box-shadow 0.25s;
+      }
+      .section-item:active {
+        background: linear-gradient(135deg, var(--gold-bright), var(--gold-mid));
+        box-shadow: 0 0 22px rgba(255, 215, 0, 0.8);
+        color: #fff;
+      }
     }
   </style>
 </head>
@@ -269,14 +279,13 @@
         <p>Explore strategies for investing in precious metals.</p>
       </div>
       <div class="section-item">
-      <h3>Inflation</h3>
-      <p>Learn how inflation affects your investments and strategies to protect your wealth.</p>
+        <h3>Inflation</h3>
+        <p>Learn how inflation affects your investments and strategies to protect your wealth.</p>
       </div>
       <div class="section-item">
-  <h3>Islamic Advice</h3>
-  <p>Dua's and prayers for success in this world and the hereafter</p>
-</div>
-
+        <h3>Islamic Advice</h3>
+        <p>Dua's and prayers for success in this world and the hereafter</p>
+      </div>
     </div>
   </section>
 
@@ -299,7 +308,7 @@
 
   <script>
     const hero = document.querySelector('.hero');
-    let numDollarSigns = window.innerWidth < 720 ? 10 : 20; // fewer for mobile
+    let numDollarSigns = window.innerWidth < 720 ? 10 : 20;
 
     for (let i = 0; i < numDollarSigns; i++) {
       const dollar = document.createElement('div');
