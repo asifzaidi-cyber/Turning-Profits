@@ -186,16 +186,17 @@
       color: #fff;
     }
 
-    /* Pulse animation for gold flash */
-    @keyframes goldPulse {
-      0% { background: #fff; box-shadow: none; color: #333; }
-      50% { background: linear-gradient(135deg, var(--gold-bright), var(--gold-mid)); box-shadow: 0 0 22px rgba(255, 215, 0, 0.8); color: #fff; }
-      100% { background: #fff; box-shadow: none; color: #333; }
-    }
-
+    /* --- GOLD FLASH TAP EFFECT FOR TOUCH DEVICES --- */
     @media (hover: none) {
+      .section-item {
+        transition: background-color 0.25s, box-shadow 0.25s;
+      }
       .section-item.tap-flash {
-        animation: goldPulse 0.5s ease;
+        background: linear-gradient(135deg, var(--gold-bright), var(--gold-mid));
+        box-shadow: 0 0 22px rgba(255, 215, 0, 0.8);
+        color: #fff;
+        transform: scale(1.04);
+        transition: all 0.3s ease;
       }
     }
 
@@ -228,17 +229,39 @@
       color: #ffcc00;
     }
 
-    /* --- MOBILE OPTIMIZATIONS --- */
     @media (max-width: 720px) {
-      header { padding: 10px 16px; flex-direction: column; align-items: flex-start; }
-      .nav-links { margin-top: 6px; }
-      .nav-links a { margin-left: 12px; font-size: 15px; }
+      header { padding: 10px 16px; }
+      .nav-links a { margin-left: 10px; font-size: 14px; }
       .hero { height: 28vh; min-height: 180px; padding: 16px 12px; }
       .hero h1 { font-size: clamp(1.6rem, 5vw, 2.5rem); }
       .hero p { font-size: clamp(1rem, 3vw, 1.2rem); }
       .dollar { font-size: 12px !important; }
-      .section-content { flex-direction: column; align-items: center; }
-      .section-item { width: 90%; max-width: 360px; }
+    }
+
+    /* --- MOBILE HEADER CENTERING (only applies on small screens) --- */
+    @media (max-width: 720px) {
+      header {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      header img {
+        margin-bottom: 8px;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .nav-links a {
+        margin: 0;
+        font-size: 15px;
+      }
     }
   </style>
 </head>
@@ -269,26 +292,11 @@
   <section id="lessons">
     <h2>Let’s Discuss</h2>
     <div class="section-content">
-      <div class="section-item">
-        <h3>Stocks</h3>
-        <p>Get the latest trends and insights into the stock market.</p>
-      </div>
-      <div class="section-item">
-        <h3>Crypto Currencies</h3>
-        <p>Stay updated with the best strategies in crypto trading.</p>
-      </div>
-      <div class="section-item">
-        <h3>Gold and Silver</h3>
-        <p>Explore strategies for investing in precious metals.</p>
-      </div>
-      <div class="section-item">
-        <h3>Inflation</h3>
-        <p>Learn how inflation affects your investments and strategies to protect your wealth.</p>
-      </div>
-      <div class="section-item">
-        <h3>Islamic Advice</h3>
-        <p>Dua's and prayers for success in this world and the hereafter</p>
-      </div>
+      <div class="section-item"><h3>Stocks</h3><p>Get the latest trends and insights into the stock market.</p></div>
+      <div class="section-item"><h3>Crypto Currencies</h3><p>Stay updated with the best strategies in crypto trading.</p></div>
+      <div class="section-item"><h3>Gold and Silver</h3><p>Explore strategies for investing in precious metals.</p></div>
+      <div class="section-item"><h3>Inflation</h3><p>Learn how inflation affects your investments and strategies to protect your wealth.</p></div>
+      <div class="section-item"><h3>Islamic Advice</h3><p>Dua's and prayers for success in this world and the hereafter.</p></div>
     </div>
   </section>
 
@@ -325,14 +333,14 @@
       hero.appendChild(dollar);
     }
 
-    // --- Gold Flash Pulse Effect ---
+    // --- Gold Flash Tap Effect ---
     const sectionItems = document.querySelectorAll('.section-item');
     sectionItems.forEach(item => {
       item.addEventListener('touchstart', () => {
         item.classList.add('tap-flash');
       });
       item.addEventListener('touchend', () => {
-        setTimeout(() => item.classList.remove('tap-flash'), 400);
+        setTimeout(() => item.classList.remove('tap-flash'), 250);
       });
     });
   </script>
